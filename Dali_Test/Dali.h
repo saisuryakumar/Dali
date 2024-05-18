@@ -1,0 +1,148 @@
+#ifndef _DALI_
+#define _DALI_
+
+#define DALI_PERIOD           700
+#define DALI_TIMEOUT          20000
+#define DALI_TX_ACTIVE_LOW    0
+#define DALI_RX_ACTIVE_LOW    0
+#define DALI_DEBUG            0
+
+/** DALI commands */
+enum daliCmd {
+  CMD_OFF = 0, 
+  CMD_UP = 1, 
+  CMD_DOWN = 2, 
+  CMD_STEP_UP = 3, 
+  CMD_STEP_DOWN = 4,
+  CMD_RECALL_MAX = 5, 
+  CMD_RECALL_MIN = 6, 
+  CMD_STEP_DOWN_AND_OFF = 7, 
+  CMD_ON_AND_STEP_UP = 8,
+  CMD_GO_TO_LAST = 10, // DALI-2
+  CMD_GO_TO_SCENE = 16,
+  CMD_RESET = 32, 
+  CMD_ARC_TO_DTR = 33,
+  CMD_SAVE_VARS = 34, 
+  CMD_SET_OPMODE = 35, 
+  CMD_RESET_MEM = 36, 
+  CMD_IDENTIFY = 37, // DALI-2
+  CMD_DTR_AS_MAX = 42, 
+  CMD_DTR_AS_MIN = 43, 
+  CMD_DTR_AS_FAIL = 44, 
+  CMD_DTR_AS_POWER_ON = 45, 
+  CMD_DTR_AS_FADE_TIME = 46, 
+  CMD_DTR_AS_FADE_RATE = 47,
+  CMD_DTR_AS_EXT_FADE_TIME = 48, // DALI-2
+  CMD_DTR_AS_SCENE = 64, 
+  CMD_REMOVE_FROM_SCENE = 80,
+  CMD_ADD_TO_GROUP = 96, 
+  CMD_REMOVE_FROM_GROUP = 112,
+  CMD_DTR_AS_SHORT = 128,
+  CMD_QUERY_STATUS = 144, 
+  CMD_QUERY_BALLAST = 145, 
+  CMD_QUERY_LAMP_FAILURE = 146, 
+  CMD_QUERY_LAMP_POWER_ON = 147, 
+  CMD_QUERY_LIMIT_ERROR = 148,
+  CMD_QUERY_RESET_STATE = 149, 
+  CMD_QUERY_MISSING_SHORT = 150, 
+  CMD_QUERY_VERSION = 151, 
+  CMD_QUERY_DTR = 152, 
+  CMD_QUERY_DEVICE_TYPE = 153,
+  CMD_QUERY_PHYS_MIN = 154, 
+  CMD_QUERY_POWER_FAILURE = 155,
+  CMD_QUERY_OPMODE = 158, 
+  CMD_QUERY_LIGHTTYPE = 159, // DALI-2
+  CMD_QUERY_ACTUAL_LEVEL = 160, 
+  CMD_QUERY_MAX_LEVEL = 161, 
+  CMD_QUERY_MIN_LEVEL = 162, 
+  CMD_QUERY_POWER_ON_LEVEL = 163, 
+  CMD_QUERY_FAIL_LEVEL = 164, 
+  CMD_QUERY_FADE_SPEEDS = 165,
+  CMD_QUERY_SPECMODE = 166, 
+  CMD_QUERY_NEXT_DEVTYPE = 167, 
+  CMD_QUERY_EXT_FADE_TIME = 168, 
+  CMD_QUERY_CTRL_GEAR_FAIL = 169, // DALI-2
+  CMD_QUERY_SCENE_LEVEL = 176,
+  CMD_QUERY_GROUPS_0_7 = 192, 
+  CMD_QUERY_GROUPS_8_15 = 193,
+  CMD_QUERY_ADDRH = 194, 
+  CMD_QUERY_ADDRM = 195, 
+  CMD_QUERY_ADDRL = 196
+};
+
+/** DALI special commands */
+enum daliSpecialCmd {
+  CMD_TERMINATE = 256, CMD_SET_DTR = 257,
+  CMD_INITIALISE = 258, CMD_RANDOMISE = 259, CMD_COMPARE = 260, CMD_WITHDRAW = 261,
+  CMD_SEARCHADDRH = 264, CMD_SEARCHADDRM = 265, CMD_SEARCHADDRL = 266,
+  CMD_PROGRAMSHORT = 267, CMD_VERIFYSHORT = 268, CMD_QUERY_SHORT = 269, CMD_PHYS_SEL = 270,
+  CMD_ENABLE_DT = 272, CMD_LOAD_DTR1 = 273, CMD_LOAD_DTR2 = 274, CMD_WRITE_MEM_LOC = 275,
+  CMD_WRITE_MEM_LOC_NOREPLY = 276 // DALI-2
+};
+
+enum SpecialCommandOpAddr {
+    SEARCHADDRH = 0xB1,
+    SEARCHADDRM = 0xB3,
+    SEARCHADDRL = 0xB5,
+    DTR0 = 0xA3,
+    DTR1 = 0xC3,
+    DTR2 = 0xC5,
+    INITIALISE = 0xA5,
+    RANDOMISE = 0xA7,
+    PROGRAM_SHORT_ADDR = 0xB7,
+    QUERY_SHORT_ADDR = 0xBB,
+    COMPARE = 0xA9,
+    TERMINATE = 0xA1,
+    ENABLE_DEVICE_TYPE = 0xC1,
+    WITHDRAW = 0xAB
+};
+
+// Command op codes
+enum CommandOpCodes {
+    GO_TO_SCENE = 0x10,
+    OFF = 0x00,
+    ON_AND_STEP_UP = 0x08,
+    QUERY_GEAR_GROUPS_L = 0xC0, // get lower byte of gear groups status
+    QUERY_GEAR_GROUPS_H = 0xC1, // get upper byte of gear groups status
+    QUERY_ACTUAL_LEVEL = 0xA0,
+    QUERY_ERROR = 0x90,
+    QUERY_PHM = 0x9A,
+    QUERY_FADE = 0xA5,
+    QUERY_COLOR_TYPE_FEATURES = 0xF9,
+    QUERY_SCENE_LEVEL = 0xB0,
+    READ_MEM_LOC = 0xC5,
+    SET_TEMP_RGB_DIM = 0xEB,
+    SET_TEMP_TEMPC = 0xE7,
+    SET_TEMP_WAF_DIM = 0xEC,
+    COLOR_ACTIVATE = 0xE2,
+
+    // Commands below are "send twice"
+    SET_SCENE = 0x40,
+    SET_FADE_TIME = 0x2E,
+    SET_FADE_RATE = 0x2F,
+    SET_MAX_LEVEL = 0x2A,
+    SET_MIN_LEVEL = 0x2B,
+    REMOVE_FROM_SCENE = 0x50,
+    REMOVE_FROM_GROUP = 0x70,
+    STORE_DTR_AS_SCENE =0x40,
+    ADD_TO_GROUP = 0x60,
+    SET_SHORT_ADDR = 0x80
+    
+};
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void Dali_Init(uint8_t rxPin, uint8_t txPin);
+unsigned long int Dali_Receive(uint8_t rxWaitTimeout);
+int Dali_Send(uint8_t grp, uint8_t address, uint8_t cmdType, uint8_t dataByte);
+int Dali_Send_Spl_Cmd(uint8_t cmd1, uint8_t cmd2);
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif//_CONFIO_DALI_
